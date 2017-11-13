@@ -1,0 +1,2 @@
+class ElementLibrariesController < ApplicationController
+end

@@ -1,0 +1,2 @@
+class TimeSignaturesController < ApplicationController
+end

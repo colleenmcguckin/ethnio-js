@@ -1,0 +1,166 @@
+  [1m[36m (196.9ms)[0m  [1mDROP DATABASE IF EXISTS "capstone_test"[0m
+  [1m[35m (493.8ms)[0m  CREATE DATABASE "capstone_test" ENCODING = 'utf8'
+  [1m[36mSQL (5.7ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (5.3ms)[0m  CREATE TABLE "chord_by_keys" ("id" serial primary key, "key_id" integer, "chord_id" integer, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (4.8ms)[0m  [1mCREATE TABLE "chords" ("id" serial primary key, "root" character varying, "quality" character varying, "audio_file" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "name" character varying) [0m
+  [1m[35m (4.8ms)[0m  CREATE TABLE "element_libraries" ("id" serial primary key, "name" character varying, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (5.9ms)[0m  [1mCREATE TABLE "elements" ("id" serial primary key, "song_id" integer, "element_library_id" integer, "length" integer, "note" text, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (4.5ms)[0m  CREATE TABLE "keys" ("id" serial primary key, "tonic" character varying, "quality" character varying, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (6.8ms)[0m  [1mCREATE TABLE "lyrics" ("id" serial primary key, "element_id" integer, "line_number" integer, "lyric" text, "song_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (6.8ms)[0m  CREATE TABLE "songs" ("id" serial primary key, "name" text, "time_signature_id" character varying, "integer" character varying, "key_id" integer, "tempo_id" integer, "access" boolean, "created_at" timestamp, "updated_at" timestamp, "user_id" integer) 
+  [1m[36m (5.0ms)[0m  [1mCREATE TABLE "structures" ("id" serial primary key, "chord_id" integer, "position" integer, "song_id" integer, "element_library_id" integer, "created_at" timestamp, "updated_at" timestamp, "notes" text) [0m
+  [1m[35m (4.9ms)[0m  CREATE TABLE "tempos" ("id" serial primary key, "bpm" integer, "created_at" timestamp, "updated_at" timestamp, "tempo_name" character varying, "description" character varying) 
+  [1m[36m (4.5ms)[0m  [1mCREATE TABLE "time_signatures" ("id" serial primary key, "beat_unit" integer, "bar" integer, "created_at" timestamp, "updated_at" timestamp, "name" character varying) [0m
+  [1m[35m (3.6ms)[0m  CREATE TABLE "users" ("id" serial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" character varying, "last_sign_in_ip" character varying, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (2.6ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_email" ON "users" USING btree ("email")[0m
+  [1m[35m (1.7ms)[0m  CREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users" USING btree ("reset_password_token")
+  [1m[36m (2.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (2.3ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.4ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (1.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150729233752')
+  [1m[36m (1.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628190948')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628192521')
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628192834')[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628193205')
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628194443')[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628194839')
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628195152')[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628195332')
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628195721')[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628200031')
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628200209')[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150701232252')
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150701232607')[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150702003346')
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150709014406')[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150712192002')
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150719212603')[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "time_signatures" ("beat_unit", "bar", "name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["beat_unit", 2], ["bar", 4], ["name", "2/4"], ["created_at", "2017-09-27 18:15:31.158626"], ["updated_at", "2017-09-27 18:15:31.158626"]]
+  [1m[35m (1.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "songs" ("time_signature_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["time_signature_id", "1"], ["created_at", "2017-09-27 18:15:31.168495"], ["updated_at", "2017-09-27 18:15:31.168495"]]
+  [1m[36m (1.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "time_signatures" ("beat_unit", "bar", "name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["beat_unit", 2], ["bar", 4], ["name", "2/4"], ["created_at", "2017-09-27 18:15:52.166816"], ["updated_at", "2017-09-27 18:15:52.166816"]]
+  [1m[35m (1.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("time_signature_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["time_signature_id", "2"], ["created_at", "2017-09-27 18:15:52.175916"], ["updated_at", "2017-09-27 18:15:52.175916"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mTimeSignature Load (0.2ms)[0m  [1mSELECT  "time_signatures".* FROM "time_signatures" WHERE "time_signatures"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mStructure Load (0.3ms)[0m  SELECT "structures".* FROM "structures" WHERE "structures"."song_id" = $1  ORDER BY "structures"."position" ASC  [["song_id", 2]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "time_signatures" ("beat_unit", "bar", "name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["beat_unit", 2], ["bar", 4], ["name", "2/4"], ["created_at", "2017-09-27 18:22:12.274024"], ["updated_at", "2017-09-27 18:22:12.274024"]]
+  [1m[35m (1.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "songs" ("time_signature_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["time_signature_id", "3"], ["created_at", "2017-09-27 18:22:12.283436"], ["updated_at", "2017-09-27 18:22:12.283436"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "time_signatures" ("beat_unit", "bar", "name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["beat_unit", 2], ["bar", 4], ["name", "2/4"], ["created_at", "2017-09-27 18:22:12.287276"], ["updated_at", "2017-09-27 18:22:12.287276"]]
+  [1m[35m (1.6ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tempos" ("bpm", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["bpm", 120], ["created_at", "2017-09-27 18:22:12.296152"], ["updated_at", "2017-09-27 18:22:12.296152"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "keys" ("tonic", "quality", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tonic", "C"], ["quality", "Major"], ["created_at", "2017-09-27 18:22:12.305391"], ["updated_at", "2017-09-27 18:22:12.305391"]]
+  [1m[35m (1.1ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("time_signature_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["time_signature_id", "4"], ["created_at", "2017-09-27 18:22:12.308978"], ["updated_at", "2017-09-27 18:22:12.308978"]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "structures" ("song_id", "position", "element_library_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["song_id", 4], ["position", 0], ["element_library_id", 2], ["created_at", "2017-09-27 18:22:12.320076"], ["updated_at", "2017-09-27 18:22:12.320076"]]
+  [1m[35m (1.1ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTimeSignature Load (0.3ms)[0m  SELECT  "time_signatures".* FROM "time_signatures" WHERE "time_signatures"."id" = $1 LIMIT 1  [["id", 3]]
+  [1m[36mStructure Load (0.2ms)[0m  [1mSELECT "structures".* FROM "structures" WHERE "structures"."song_id" = $1  ORDER BY "structures"."position" ASC[0m  [["song_id", 3]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTimeSignature Load (0.4ms)[0m  SELECT  "time_signatures".* FROM "time_signatures" WHERE "time_signatures"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mStructure Load (0.3ms)[0m  [1mSELECT "structures".* FROM "structures" WHERE "structures"."song_id" = $1  ORDER BY "structures"."position" ASC[0m  [["song_id", 4]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "time_signatures" ("beat_unit", "bar", "name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["beat_unit", 2], ["bar", 4], ["name", "2/4"], ["created_at", "2017-09-27 18:26:16.742687"], ["updated_at", "2017-09-27 18:26:16.742687"]]
+  [1m[35m (1.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "songs" ("time_signature_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["time_signature_id", "5"], ["created_at", "2017-09-27 18:26:16.754318"], ["updated_at", "2017-09-27 18:26:16.754318"]]
+  [1m[36m (1.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "time_signatures" ("beat_unit", "bar", "name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["beat_unit", 2], ["bar", 4], ["name", "2/4"], ["created_at", "2017-09-27 18:26:16.758673"], ["updated_at", "2017-09-27 18:26:16.758673"]]
+  [1m[35m (1.1ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "tempos" ("bpm", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["bpm", 120], ["created_at", "2017-09-27 18:26:16.766402"], ["updated_at", "2017-09-27 18:26:16.766402"]]
+  [1m[36m (1.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "keys" ("tonic", "quality", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tonic", "C"], ["quality", "Major"], ["created_at", "2017-09-27 18:26:16.775753"], ["updated_at", "2017-09-27 18:26:16.775753"]]
+  [1m[35m (1.7ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "songs" ("time_signature_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["time_signature_id", "6"], ["created_at", "2017-09-27 18:26:16.780066"], ["updated_at", "2017-09-27 18:26:16.780066"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "structures" ("song_id", "position", "element_library_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["song_id", 6], ["position", 0], ["element_library_id", 2], ["created_at", "2017-09-27 18:26:16.790194"], ["updated_at", "2017-09-27 18:26:16.790194"]]
+  [1m[35m (1.0ms)[0m  COMMIT
+  [1m[36m (1.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTimeSignature Load (0.2ms)[0m  SELECT  "time_signatures".* FROM "time_signatures" WHERE "time_signatures"."id" = $1 LIMIT 1  [["id", 5]]
+  [1m[36mStructure Load (0.3ms)[0m  [1mSELECT "structures".* FROM "structures" WHERE "structures"."song_id" = $1  ORDER BY "structures"."position" ASC[0m  [["song_id", 5]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTimeSignature Load (0.2ms)[0m  SELECT  "time_signatures".* FROM "time_signatures" WHERE "time_signatures"."id" = $1 LIMIT 1  [["id", 6]]
+  [1m[36mStructure Load (0.2ms)[0m  [1mSELECT "structures".* FROM "structures" WHERE "structures"."song_id" = $1  ORDER BY "structures"."position" ASC[0m  [["song_id", 6]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "time_signatures" ("beat_unit", "bar", "name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["beat_unit", 2], ["bar", 4], ["name", "2/4"], ["created_at", "2017-09-27 18:26:55.153758"], ["updated_at", "2017-09-27 18:26:55.153758"]]
+  [1m[35m (1.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("time_signature_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["time_signature_id", "7"], ["created_at", "2017-09-27 18:26:55.165006"], ["updated_at", "2017-09-27 18:26:55.165006"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "time_signatures" ("beat_unit", "bar", "name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["beat_unit", 2], ["bar", 4], ["name", "2/4"], ["created_at", "2017-09-27 18:26:55.168801"], ["updated_at", "2017-09-27 18:26:55.168801"]]
+  [1m[35m (1.1ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "tempos" ("bpm", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["bpm", 120], ["created_at", "2017-09-27 18:26:55.177133"], ["updated_at", "2017-09-27 18:26:55.177133"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "keys" ("tonic", "quality", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tonic", "C"], ["quality", "Major"], ["created_at", "2017-09-27 18:26:55.187292"], ["updated_at", "2017-09-27 18:26:55.187292"]]
+  [1m[35m (1.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "songs" ("time_signature_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["time_signature_id", "8"], ["created_at", "2017-09-27 18:26:55.191330"], ["updated_at", "2017-09-27 18:26:55.191330"]]
+  [1m[36m (1.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "structures" ("song_id", "position", "element_library_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["song_id", 8], ["position", 0], ["element_library_id", 2], ["created_at", "2017-09-27 18:26:55.201992"], ["updated_at", "2017-09-27 18:26:55.201992"]]
+  [1m[35m (0.9ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTimeSignature Load (0.2ms)[0m  SELECT  "time_signatures".* FROM "time_signatures" WHERE "time_signatures"."id" = $1 LIMIT 1  [["id", 7]]
+  [1m[36mStructure Load (0.2ms)[0m  [1mSELECT "structures".* FROM "structures" WHERE "structures"."song_id" = $1  ORDER BY "structures"."position" ASC[0m  [["song_id", 7]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTimeSignature Load (0.2ms)[0m  SELECT  "time_signatures".* FROM "time_signatures" WHERE "time_signatures"."id" = $1 LIMIT 1  [["id", 8]]
+  [1m[36mStructure Load (0.2ms)[0m  [1mSELECT "structures".* FROM "structures" WHERE "structures"."song_id" = $1  ORDER BY "structures"."position" ASC[0m  [["song_id", 8]]
+  [1m[35m (0.2ms)[0m  ROLLBACK

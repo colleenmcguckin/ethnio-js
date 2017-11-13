@@ -1,0 +1,13 @@
+<div id="login">
+  <%= form_tag("/users/sign_in", method: "get") do %>
+    <div>
+      <%= text_field_tag(:email, "Email") %>
+    </div>
+    <div>
+      <%= text_field_tag(:password, "Password") %>
+    </div>
+    <div>
+      <%= submit_tag("Open Book") %>
+    </div>
+  <% end %>
+</div>

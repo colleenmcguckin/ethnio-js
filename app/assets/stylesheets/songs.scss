@@ -1,0 +1,53 @@
+// Place all the styles related to the songs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.new-songs-wrapper{
+  height: 100%;
+}
+
+h1{
+  font-size: 60px;  
+}
+
+.basics {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.basicsTitles div {
+  display: inline-block;
+}
+
+.basicsSelections div {
+  display: inline-block;
+}
+
+.basicsSelections div select {
+  width: 100px;
+  background-color: #DCDCDC;
+}
+
+.basicsButton {
+  margin-top: 3 0px; 
+}
+
+#title{
+  width: 300px;
+  height: 60px;
+  font-size: 25pt;
+  margin-bottom: 10px;
+}
+
+.row {
+  margin-left: 10px;
+}
+
+.navbar {
+  margin-top: -62px;
+}
+
+#songshow {
+  text-align: center;
+}
+

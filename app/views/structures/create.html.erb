@@ -1,0 +1,47 @@
+<div ng-controller="songsCtrl">
+ <p class="notice"><%= notice %></p>
+ <p class="alert"><%= alert %></p>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/songs"><%= image_tag "notebook-nav-icon.png", alt: "NoteBook" %></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div >
+      <ul class="nav navbar-nav page-navbar">
+        <li><h2>Chord Selection</h2></li>
+        
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li><%= link_to "Log Out", "/users/sign_out", method: :delete if current_user %></li>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="background">
+
+
+<h1>Creative Mode</h1>
+
+<%= form_tag("/structures/#{@song.id}", method: "patch") do %>
+  
+  <% ((Song.find_by(id: @song.id).time_signature.beat_unit)*(Structure.where(id: @song_id))).times do %>
+    <div>
+      <%= collection_select(:chord, :chord_id, @song.key.chords, :id, :name) %>
+    </div>
+  <% end %>
+  <div>
+    <%= text_field_tag(:lyrics, nil, placeholder: "Enter lyrics here") %>
+  </div>
+<%= hidden_field_tag "length_1", "#{@length_1}" %>
+<%= submit_tag("Save Chords & Lyrics") %>
+<% end %>
+
+</br>
+
+</div>

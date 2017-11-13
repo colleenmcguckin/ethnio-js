@@ -1,0 +1,64 @@
+<div class="new-songs-wrapper" ng-controller="songsCtrl">
+ <p class="notice"><%= notice %></p>
+ <p class="alert"><%= alert %></p>
+<nav class="navbar navbar-default navimage">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="header-container navbar-header">
+      <div class="left">
+        <a class="navbar-brand header-image " href="/songs"><img class="headerimage" src="/assets/notebook-header-icon.png"></a>
+      </div>
+      <div class="middle">
+        <div class="tape">
+          <h2>Chords & Lyrics</h2>
+        </div>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="background">
+  <div class="instructions"><h4>Use the drop downs to select a chord for each beat of the song. Measures end at the "|". Type your lyrics into the text box. Lyrics are based on the line and are not measure-dependent. When you are done entering chords and lyrics, click "Save Chords & Lyrics" to view a lead sheet of your song.</h4>
+  </div>
+
+  <div class="creativeModeContainer">
+
+  <%= form_tag("/structures/#{@song.id}", method: "patch") do %>
+    
+    <div class="creativeMode">
+      <% @lines.each_with_index do |line, index| %>
+      <div id="element_name">
+        <%= ElementLibrary.find_by(id: @element_ids[index]).name %>
+      </div>
+
+        <% line.each do |measure| %>
+
+          <div class="measure">
+          <% measure.each do |structure| %>
+
+            <div class="creativeMode" >
+              <div >
+              <%= collection_select("structures[#{structure.id}]", :chord_id, @song.key.chords, :id, :name, {},html_options={:class => "chord_select"}) %>
+              </div>
+            </div>
+
+          <% end %>
+          </div>
+        <% end %>
+        <div >
+          <%= text_field_tag("lyrics[#{index}]", nil, placeholder: "Enter lyrics here", :class => 'lyric_box') %>
+        </div>
+      <% end %>
+    </div>
+    <%= submit_tag("Save Chords & Lyrics") %>
+  <% end %>
+
+  </br>
+  </div>
+
+</div>
+
+
+
+      

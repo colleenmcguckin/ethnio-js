@@ -1,0 +1,27 @@
+// Place all the styles related to the structures controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#structure_container{
+  horizontal-align: center;
+  text-align: center;
+}
+
+#element_container{ 
+}
+
+.structure_div div{
+  display: inline-block;
+  text-align: center;
+}
+.element_div{
+  display: inline-block;
+  text-align: center;
+}
+
+.ElementSelection div {
+  display: inline-block;
+}
+
+#structureButton {
+  text-align: center;
+}

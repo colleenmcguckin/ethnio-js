@@ -1,0 +1,84 @@
+<div ng-controller="songsCtrl">
+ <p class="notice"><%= notice %></p>
+ <p class="alert"><%= alert %></p>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/songs"><%= image_tag "notebook-nav-icon.png", alt: "NoteBook" %></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/songs/new"><span class="glyphicon glyphicon-plus" aria-hidden="true"> </span> New Song</a></li>
+        <li class="dropdown">
+
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Filter Key Signatures<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          <% Key.all.each do |keysignature| %>
+            <li><a href="" ng-click="changeSelectedKeySignature('<%= keysignature.tonic %>')"><%= keysignature.tonic %></a></li>
+          <% end %>  
+          </ul>
+        </li>
+        <li class="dropdown">
+
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Filter Time Signatures<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          <% TimeSignature.all.each do |timesignature| %>
+            <li><a href="" ng-click="changeSelectedTimeSignature('<%= timesignature.name %>')" ><%= timesignature.name %></a></li>
+          <% end %>  
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input ng-model="songFilter" list="songs">
+            
+            <datalist id="songs">
+              <option ng-repeat="song in songs">{{ song.title }}</option>
+            </datalist>
+           
+            <button type="submit" class="btn btn-default">Search</button>
+        </div>
+
+
+
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="" ng-click="sortBy('title')">A-Z</a></li>
+         <li><a href="" ng-click="sortBy('created_at')">Sort By Date Created</a></li>
+        <li><a href="/songs">Clear Filters</a></li>
+        <li><%= link_to "Log Out", "/users/sign_out", method: :delete if current_user %></li>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div id="song_index" class="container">
+
+
+    <div id="indexTitle"><h1>My Songs: </h1></div>
+
+      <div  class="col-sm-6 col-md-4" ng-repeat="song in songs | filter: {key_signature: selectedKeySignature}:true | filter: { time_signature: selectedTimeSignature, title: songFilter } | orderBy:orderAttribute:descending track by $index">
+        <div id="songs" class="thumbnail">
+          <div class="caption">
+            <div class="row" >
+                <h3><a href="/songs/{{song.id}}">{{song.title}}</a></h3>
+                <h4> Key Signature: {{song.key_signature}} </h4>
+                <h4> Time Signature: {{song.time_signature}} </h4>
+                <h4> Tempo: {{song.tempo.bpm}} bpm </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
+

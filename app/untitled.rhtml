@@ -1,0 +1,62 @@
+  
+INDEX
+
+
+  <% @songs.each do |song| %>
+    
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <div class="caption">
+            <h3><a href="/songs/<%= song.id %>"><%= song.name %></a></h3>
+            <h4> Key: <%= song.key.tonic %> </h4>
+            <h4> Time Signature: <%= song.time_signature.name %> </h4>
+            <h4> Tempo: <%= song.tempo.bpm %> bpm</h4>
+            <p><a href="/songs/<%= song.id %>" class="btn btn-default" role="button">View</a> <a href="/structures" class="btn btn-default" role="button">Edit Chords</a> <a href="/structures/<%= song.id %>" class="btn btn-default" role="button">Perform</a> </p>
+          </div>
+        </div>
+      </div>
+<!--   </div> -->
+  <% end %>
+</div>
+
+
+NEW SONG
+
+<%= form_tag("/songs/", method: "post") do %>
+  <%= text_field_tag(:name, "Enter Song Name Here") %>
+  <%= collection_select(:key, :key_id, Key.all, :id, :tonic) %>
+  <%= collection_select(:time_signature, :time_signature_id, TimeSignature.all, :id, :name) %>
+  <%= collection_select(:tempo, :tempo_id, Tempo.all, :id, :bpm) %>
+  <%= submit_tag("Done With Basics") %>
+  <%= hidden_field_tag "key_id", params[:key_id] %>
+<% end %>
+
+STRUCTURE
+
+<%= form_tag("/structures", method: "post") do %>
+  <div class="btn-group">
+    <%= collection_select(:element_1, :element_library_id, ElementLibrary.all, :id, :name) %>
+    <%= select("length", "length_id_1", [[ "1", 1 ], [ "2", 2 ], ["4", 4], ["8", 8]]) %>
+    <%= text_field_tag(:notes, nil, placeholder: "optional notes") %>
+  </div>
+  <div>
+    <%= collection_select(:element_2, :element_library_id, ElementLibrary.all, :id, :name) %>
+    <%= select("length", "length_id_2", [[ "1", 1 ], [ "2", 2 ], ["4", 4], ["8", 8]]) %>
+    <%= text_field_tag(:notes, nil, placeholder: "optional notes") %>
+  </div>
+  <%= hidden_field_tag "song_id", params[:song] %>
+  <%= hidden_field_tag "key_id", params[:key_id] %>
+  <%= submit_tag("Done With Structure") %>
+
+
+<% end %>
+
+STRUCTURE CTRL:
+
+ $scope.inputFields = [
+        {elementSelected: 
+          {element_name: $scope.element_names[0].element_name, id: $scope.element_names[0].id}
+        }
+      ];
+
+

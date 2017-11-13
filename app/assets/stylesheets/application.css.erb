@@ -1,0 +1,69 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *= require _external.css.scss
+ *= require_tree .
+ *= require_self
+ */
+html, body {
+  height: 100%;
+}
+
+#song_index{
+  background-image: url("<%= asset_path('notebook-bg.png') %>");
+  background-size: 50%;
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px #888888;
+}
+
+#indexTitle {
+  color: black;
+  background-image: url("<%= asset_path('tape.png')%>");
+  background-size: 100%;
+  width: 500px;
+  height: auto;
+  border-radius: 10px;
+  margin: auto;
+  margin-bottom: 15px;
+  padding-bottom: 2px;
+}
+
+#songs{
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.background{
+  background-image: url("<%= asset_path('linedpaper.png') %>");
+  height: 100%;
+  padding-top: 30px;
+  margin-top:-20px;
+}
+
+.instructions h4 {
+  margin: 50px;
+  text-align: justify;
+}
+
+ 
+
+
+
+
+.page-navbar h2{
+  text-align: center;
+  font-size: 40px;
+  width: 500px;
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  height:auto;
+  background-image: url("<%= asset_path('tape.png')%>");
+}

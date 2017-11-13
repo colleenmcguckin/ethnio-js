@@ -1,0 +1,41 @@
+.navimage {
+  background-image: url("/assets/notebook-cover-background.png");
+}
+
+.header-container {
+  width: 100%;
+
+  .left {
+    float: left;
+    width: 100px;
+
+    .headerimage {
+      width: 100%;
+      margin-top: 8px;
+    }
+  }
+
+  .right {
+    float: right;
+    margin-top: 21px;
+    font-size: 26px;
+    text-decoration: extra-bold;
+
+  }
+
+  .middle {
+    width: 100%;
+    text-align: center;
+
+
+    .tape {
+      background-image: url("/assets/tape.png");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      display: inline-block;
+      padding: 10px;
+    }
+  }
+
+
+}

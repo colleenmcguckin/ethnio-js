@@ -1,0 +1,97 @@
+(function(){
+  "use strict";
+
+  angular.module("app").controller("structureCtrl", function($scope, $http){
+
+  var setup2 = function(){
+    $http.get("/api/v1/songs.json").then(function(response){
+
+      $scope.songs = response.data.songs;
+      $scope.keys = response.data.keys;
+      $scope.time_signatures = response.data.time_signatures;
+      $scope.tempos = response.data.tempos;
+      $scope.element_names = response.data.element_names;
+
+    });
+  }
+    setup2();
+
+  $scope.setId = function(song_id){
+    $scope.currentSongId = song_id;
+    
+    $http.get("/api/v1/chords/" + $scope.currentSongId + ".json").then(function(response){
+      $scope.chords = response.data.chords;
+    });
+  }
+
+  $scope.elementCount = 0
+  $scope.inputFields = [{}]
+
+  $scope.addElementField = function(){
+    $scope.elementCount++;
+    var songElement = { };
+    $scope.inputFields.push(songElement);
+  }
+
+  $scope.removeElementField = function(inputField){
+    $scope.elementCount--;
+    var index = $scope.inputFields.indexOf(inputField);
+    if ($scope.inputFields.length > 1){
+      $scope.inputFields.splice(index, 1);
+    }
+  
+  }
+
+  
+  $scope.saveStructure = function(){
+    var songStructure = []
+    var count = $scope.inputFields.length
+    for (var i=0; i < count; i++){
+      var element = {
+        elementId: $scope.inputFields[i].elementSelected.id,
+        elementLength: $scope.inputFields[i].lengthSelected,
+        optionalNotes: $scope.inputFields[i].optionalNotes,
+        song_id: $scope.currentSongId
+      };
+      songStructure.push(element);
+    }
+
+    $http.post('/api/v1/structures.json', songStructure).then(function(response){
+      window.location = "/chords/new?song=" + $scope.currentSongId;
+    }, function(error) {
+      $scope.errors = error.data.errors;
+
+
+    });
+
+  };
+
+  // $scope.chords = []
+  // $scope.chordSelectGeneration = function(){
+  //   $scope.chordFields = ALL THE "position" CHORDS WITH SAME SONG ID;
+  //   for (var i=0; i<= $scope.chordFields.size; i++){
+  //     $scope.chords.push($scope.chords);
+  //   }
+  //   return $scope.chords
+  // }
+
+  // $scope.saveChords = function(){
+  //   for (var i=0; i <= $scope.chords; i++){
+  //     var chordObject = {
+  //       song_id: ,
+  //       position: ,
+  //       tonic: 
+  //     }
+  //   $http.post('/api/v1/structures.json', songStructure).then(function(response){
+  //   $scope.element_names.push(songStructure);
+  //   window.location = "/structures/new?song=" + response.data.song_id;
+  //   }, function(error) {
+  //   $scope.errors = error.data.errors;
+  //   }
+  // }
+
+    window.scope = $scope;
+
+  })
+
+}());

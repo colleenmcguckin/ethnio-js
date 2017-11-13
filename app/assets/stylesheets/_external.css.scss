@@ -1,0 +1,16 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+#login {
+  background-image: url("notebook-cover.png");
+  min-height: 10%;
+  min-width: 1024px;
+
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+}

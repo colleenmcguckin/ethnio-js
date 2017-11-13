@@ -1,0 +1,71 @@
+<div class="new-songs-wrapper" ng-controller="songsCtrl">
+ <p class="notice"><%= notice %></p>
+ <p class="alert"><%= alert %></p>
+<nav class="navbar navbar-default navimage">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="header-container navbar-header">
+      <div class="left">
+        <a class="navbar-brand header-image " href="/songs"><img class="headerimage" src="/assets/notebook-header-icon.png"></a>
+      </div>
+      <div class="middle">
+        <div class="tape">
+          <h2>Structure</h2>
+        </div>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="background">
+<div class="instructions-container">
+<div class="instructions"><h4>Create the structure of your song using the element drop down menus. Indicate how many measures you want the song element to last using the length drop down menus. Add elements by clicking the "+" and remove elements by clicking the "-". When you are finished creating the structure of your song, save it to move on to chord selections and lyrics!</h4>
+</div>
+</div>
+<div ng-controller="structureCtrl" ng-init="setId(<%= @song_id %>)">
+<div id="structure_container">
+<div class="row">
+  <div class="element_div col-lg-12" ng-repeat="inputField in inputFields">
+    <div class="structure_div">
+      <div class="structure_div">
+        <h3 ng-click="removeElementField(inputField)">-</h3>
+      </div>
+      <div id="element_container">
+        <div class="ElementSelection">
+          <div>
+            <h4>Select Element:</h4>
+          </div>
+          <div>
+            <select ng-model="inputField.elementSelected" ng-options="element.element_name for element in element_names"></select>
+          </div>
+        </div>
+        <div class="ElementSelection">
+        <div>
+            <h4>Select Length (in measures):</h4>
+        </div>
+        <select ng-model="inputField.lengthSelected">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="4">4</option>
+          <option value="8">8</option>></select>
+        </div>
+      
+      </div>
+      <div class="structure_div" >
+        <h3 ng-click="addElementField()">+</h3>   
+      </div>
+    </div>  
+  </div>
+  </div>
+
+  <div>
+    <button id="structureButton" ng-click="saveStructure()"> Save Structure! </button>
+  </div>
+  </div>
+</div>
+
+
+
+</div>
+

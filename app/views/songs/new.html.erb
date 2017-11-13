@@ -1,0 +1,52 @@
+<div class="new-songs-wrapper" ng-controller="songsCtrl">
+ <p class="notice"><%= notice %></p>
+ <p class="alert"><%= alert %></p>
+<nav class="navbar navbar-default navimage">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="header-container navbar-header">
+      <div class="left">
+       <!--  <a class="navbar-brand header-image " href="/songs"><img class="headerimage" src="/assets/notebook-header-icon.png"></a> -->
+       <%= link_to image_tag('notebook-header-icon.png', :class=>"headerimage"), "/songs", :class =>"navbar-brand header-image" %>
+      </div>
+      <div class="middle">
+        <div class="tape">
+          <h2>Basics</h2>
+        </div>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="background">
+<div class="instructions"><h4>Start creating your song by entering the name of the song in the text box. Then, choose a key, a time signature (most popular music is in 4/4 time), and a tempo. When you're satisfied with your selections click "Add Song" to move on and create a song structure! </h4>
+</div>
+
+  <div class="basics" ng-controller="songsCtrl">
+    <div>
+    <input id="title" ng-model="songTitle" placeholder="Enter Song Name">
+    </div>
+    <div class="basicsSelections">
+    <div class="basicsTitles">
+      <div><h4> Key: </h4></div>
+      <select ng-model="key" ng-options="key.name for key in keys"></select>
+    </div>
+    <div class="basicsTitles">
+      <div><h4> Time Signature:</h4></div>
+      <select ng-model="timeSignature" ng-options="time_signature.name for time_signature in time_signatures"></select>
+    </div>
+    <div class="basicsTitles">  
+      <div><h4> Tempo: </h4></div>
+      <select ng-model="tempo" ng-options="tempo.bpm for tempo in tempos"></select>
+    </div>
+    </div>
+    <div class="basicsButton">
+    <button ng-click="addSong(songTitle, key, timeSignature, tempo)"> Add Song! </button>
+    </div>
+  </div>
+</div>
+
+
+
+
